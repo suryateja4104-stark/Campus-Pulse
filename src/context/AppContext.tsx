@@ -30,31 +30,64 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const isMobileDevice = (): boolean => {
-  if (typeof window === 'undefined') return false;
+  try {
+    if (typeof window === 'undefined') return false;
 
-  // 1. Check Mobile User Agent string
-  const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(
-    navigator.userAgent || navigator.vendor || (window as any).opera || ''
-  );
+    // 1. User agent check
+    const ua = (navigator.userAgent || navigator.vendor || (window as any).opera || '').toString();
+    const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(ua);
 
-  // 2. Check screen width & media queries (< 1024px threshold)
-  const isSmallViewport = window.innerWidth < 1024 || window.screen.width < 1024;
-  const matchesMobileMedia = window.matchMedia && window.matchMedia('(max-width: 1023px)').matches;
+    // 2. Viewport & screen width check (< 1024px)
+    const wWidth = window.innerWidth || (document.documentElement ? document.documentElement.clientWidth : 0) || (window.screen ? window.screen.width : 0);
+    const isSmallViewport = wWidth < 1024;
 
-  // 3. Touch screen capability
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    // 3. Media query check
+    const matchesMobileMedia = typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 1023px)').matches;
 
-  return isMobileUserAgent || isSmallViewport || matchesMobileMedia || isTouchDevice;
+    // 4. Touch device check
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
+
+    return Boolean(isMobileUserAgent || isSmallViewport || matchesMobileMedia || isTouchDevice);
+  } catch (err) {
+    return true; // Fallback safely to mobile view on any exception
+  }
 };
 
 const getInitialViewMode = (): ViewMode => {
   return isMobileDevice() ? 'mobile-frame' : 'desktop';
 };
 
+const getInitialEvents = (): Event[] => {
+  try {
+    if (Array.isArray(eventsData)) return eventsData as Event[];
+    return ((eventsData as any)?.default || []) as Event[];
+  } catch {
+    return [];
+  }
+};
+
+const getInitialClubs = (): Club[] => {
+  try {
+    if (Array.isArray(clubsData)) return clubsData as Club[];
+    return ((clubsData as any)?.default || []) as Club[];
+  } catch {
+    return [];
+  }
+};
+
+const getInitialUpdates = (): Update[] => {
+  try {
+    if (Array.isArray(updatesData)) return updatesData as Update[];
+    return ((updatesData as any)?.default || []) as Update[];
+  } catch {
+    return [];
+  }
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [events, setEvents] = useState<Event[]>(eventsData as Event[]);
-  const [clubs] = useState<Club[]>(clubsData as Club[]);
-  const [updates] = useState<Update[]>(updatesData as Update[]);
+  const [events, setEvents] = useState<Event[]>(getInitialEvents);
+  const [clubs] = useState<Club[]>(getInitialClubs);
+  const [updates] = useState<Update[]>(getInitialUpdates);
 
   const [registeredEventIds, setRegisteredEventIds] = useState<string[]>(['evt-1']);
   const [savedEventIds, setSavedEventIds] = useState<string[]>(['evt-3']);
@@ -65,10 +98,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   useEffect(() => {
     const handleResize = () => {
-      if (isMobileDevice()) {
-        setViewMode('mobile-frame');
-      } else if (window.innerWidth >= 1024) {
-        setViewMode('desktop');
+      try {
+        if (isMobileDevice()) {
+          setViewMode('mobile-frame');
+        } else if (window.innerWidth >= 1024) {
+          setViewMode('desktop');
+        }
+      } catch (err) {
+        // Silent fallback
       }
     };
 
@@ -89,7 +126,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const resetEventsToDefault = () => {
-    setEvents(eventsData as Event[]);
+    setEvents(getInitialEvents());
   };
 
   const registerEvent = (id: string) => {
