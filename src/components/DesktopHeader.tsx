@@ -7,7 +7,7 @@ export const DesktopHeader: React.FC = () => {
   const { viewMode, toggleViewMode } = useApp();
 
   return (
-    <header className="sticky top-0 z-30 pt-4 pb-2 px-6 mb-4 backdrop-blur-md bg-bg-base/80 hidden lg:flex items-center justify-between gap-4 border-b border-white/60">
+    <header className="sticky top-0 z-30 pt-4 pb-2 px-6 mb-4 backdrop-blur-md bg-bg-base/80 hidden md:flex items-center justify-between gap-4 border-b border-white/60">
       {/* Search Input */}
       <div className="relative flex-1 max-w-md">
         <GlassPanel weight="card" className="flex items-center gap-2 px-4 py-2 rounded-full">

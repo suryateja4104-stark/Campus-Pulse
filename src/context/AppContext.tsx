@@ -29,32 +29,37 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const isMobileDevice = (): boolean => {
+export const isMobilePhone = (): boolean => {
   try {
     if (typeof window === 'undefined') return false;
 
-    // 1. User agent check
-    const ua = (navigator.userAgent || navigator.vendor || (window as any).opera || '').toString();
-    const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(ua);
+    const ua = (navigator.userAgent || navigator.vendor || (window as any).opera || '').toLowerCase();
 
-    // 2. Viewport & screen width check (< 1024px)
-    const wWidth = window.innerWidth || (document.documentElement ? document.documentElement.clientWidth : 0) || (window.screen ? window.screen.width : 0);
-    const isSmallViewport = wWidth < 1024;
+    // 1. Mobile Phone User Agent Regex
+    const isMobileUA = /iphone|ipod|android.*mobile|windows phone|blackberry|mobile/i.test(ua);
+    
+    // 2. Desktop OS User Agent Regex (Windows, Mac, Chromebook, Linux)
+    const isDesktopOS = /macintosh|windows nt|cros|linux x86_64/i.test(ua) && !isMobileUA;
 
-    // 3. Media query check
-    const matchesMobileMedia = typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 1023px)').matches;
+    if (isDesktopOS) {
+      // Desktop computers ALWAYS default to Desktop View
+      return false;
+    }
 
-    // 4. Touch device check
-    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0);
+    if (isMobileUA) {
+      // Smartphones ALWAYS default to Mobile View
+      return true;
+    }
 
-    return Boolean(isMobileUserAgent || isSmallViewport || matchesMobileMedia || isTouchDevice);
+    // 3. Fallback Viewport check (768px threshold)
+    return window.innerWidth < 768;
   } catch (err) {
-    return true; // Fallback safely to mobile view on any exception
+    return false;
   }
 };
 
 const getInitialViewMode = (): ViewMode => {
-  return isMobileDevice() ? 'mobile-frame' : 'desktop';
+  return isMobilePhone() ? 'mobile-frame' : 'desktop';
 };
 
 const getInitialEvents = (): Event[] => {
@@ -99,9 +104,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     const handleResize = () => {
       try {
-        if (isMobileDevice()) {
+        if (isMobilePhone()) {
           setViewMode('mobile-frame');
-        } else if (window.innerWidth >= 1024) {
+        } else if (window.innerWidth >= 768) {
           setViewMode('desktop');
         }
       } catch (err) {

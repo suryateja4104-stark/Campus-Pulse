@@ -7,8 +7,8 @@ interface PhoneFrameProps {
 export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
   return (
     <div className="w-full min-h-screen bg-bg-base text-ink relative font-body overflow-x-hidden">
-      {/* 1. Mobile Devices & Mobile Browsers (< 1024px): 100% Full-bleed Edge-to-Edge Fill (Light Background, Zero Dark Canvas) */}
-      <div className="lg:hidden w-full min-h-screen flex flex-col relative z-10">
+      {/* 1. Mobile Devices & Smartphones (< 768px): 100% Full-bleed Edge-to-Edge Fill */}
+      <div className="md:hidden w-full min-h-screen flex flex-col relative z-10">
         {/* Soft background orbs */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
           <div
@@ -26,8 +26,8 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
         </div>
       </div>
 
-      {/* 2. Desktop Monitors ONLY (>= 1024px): 390px x 844px Phone Frame Shell */}
-      <div className="hidden lg:flex fixed inset-0 bg-[#0B0F19] justify-center items-center p-6 z-0 overflow-hidden">
+      {/* 2. Desktop Monitors (>= 768px): 390px x 844px Phone Frame Shell */}
+      <div className="hidden md:flex fixed inset-0 bg-[#0B0F19] justify-center items-center p-6 z-0 overflow-hidden">
         {/* Desktop ambient background orbs */}
         <div className="fixed inset-0 pointer-events-none z-0">
           <div
@@ -36,7 +36,7 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
           />
           <div
             className="absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full blur-[100px]"
-            style={{ backgroundColor: 'rgba(14, 165, 233, 0.14)' }}
+            style={{ backgroundColor: 'rgba(14, 165, 233, 0.18)' }}
           />
         </div>
 
