@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import eventsData from '../data/events.json';
 import clubsData from '../data/clubs.json';
 import updatesData from '../data/updates.json';
@@ -29,6 +29,13 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+const getInitialViewMode = (): ViewMode => {
+  if (typeof window !== 'undefined') {
+    return window.innerWidth < 768 ? 'mobile-frame' : 'desktop';
+  }
+  return 'desktop';
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [events, setEvents] = useState<Event[]>(eventsData as Event[]);
   const [clubs] = useState<Club[]>(clubsData as Club[]);
@@ -39,7 +46,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [followedClubIds, setFollowedClubIds] = useState<string[]>(['consclub', 'techsoc']);
   const [reminders, setRemindersState] = useState<Record<string, string>>({ 'evt-1': '15 Min' });
 
-  const [viewMode, setViewMode] = useState<ViewMode>('desktop');
+  const [viewMode, setViewMode] = useState<ViewMode>(getInitialViewMode);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setViewMode('mobile-frame');
+      } else {
+        setViewMode('desktop');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const toggleViewMode = () => {
     setViewMode((prev) => (prev === 'desktop' ? 'mobile-frame' : 'desktop'));
