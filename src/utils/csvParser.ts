@@ -111,9 +111,12 @@ export const parseCsvText = (csvText: string): Event[] => {
 };
 
 export const getSampleCsvString = (): string => {
-  return `Title,Category,Date,Time,Location,Club,Description,Attendees,Image
-"Product Teardown Challenge","Competition","Mon, Nov 10","3:00 PM - 5:00 PM","LT 201, Academic Block","TechSoc","Live teardown of top Indian fintech apps with cash prizes.","150","https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"
-"McKinsey Case Interview Sprint","Workshop","Tue, Nov 11","5:30 PM - 7:00 PM","Auditorium B","Consulting Club","Master profitability and market entry frameworks with McKinsey alumni.","210","https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
-"Venture Capital Valuation Masterclass","Speaker Session","Wed, Nov 12","6:00 PM - 7:30 PM","MDC Hall","FinSec","Sequoia India Partner breakdowns term sheets and valuation multiples.","180","https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80"
-"Inter-Batch Badminton Championship","Sports","Thu, Nov 13","7:00 PM - 9:30 PM","Sports Complex","SportsCom","Annual doubles badminton tournament across PGP1 and PGP2 batches.","95","https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80"`;
+  const rows = [
+    'Title,Category,Date,Time,Location,Club,Description,Attendees,Image',
+    '"Product Teardown Challenge","Competition","Mon, Nov 10","3:00 PM - 5:00 PM","LT 201, Academic Block","TechSoc","Live teardown of top Indian fintech apps with cash prizes.","150","https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80"',
+    '"McKinsey Case Interview Sprint","Workshop","Tue, Nov 11","5:30 PM - 7:00 PM","Auditorium B","Consulting Club","Master profitability and market entry frameworks with McKinsey alumni.","210","https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"',
+    '"Venture Capital Valuation Masterclass","Speaker Session","Wed, Nov 12","6:00 PM - 7:30 PM","MDC Hall","FinSec","Sequoia India Partner breakdowns term sheets and valuation multiples.","180","https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80"',
+    '"Inter-Batch Badminton Championship","Sports","Thu, Nov 13","7:00 PM - 9:30 PM","Sports Complex","SportsCom","Annual doubles badminton tournament across PGP1 and PGP2 batches.","95","https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80"'
+  ];
+  return rows.join('\r\n');
 };

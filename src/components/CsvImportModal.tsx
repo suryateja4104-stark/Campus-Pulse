@@ -48,7 +48,9 @@ export const CsvImportModal: React.FC<CsvImportModalProps> = ({ isOpen, onClose 
 
   const handleDownloadSample = () => {
     const sampleCsv = getSampleCsvString();
-    const blob = new Blob([sampleCsv], { type: 'text/csv;charset=utf-8;' });
+    // Prepend UTF-8 Byte Order Mark (\uFEFF) so Excel/Windows parses CSV format natively into columns
+    const bom = '\uFEFF';
+    const blob = new Blob([bom + sampleCsv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -56,6 +58,7 @@ export const CsvImportModal: React.FC<CsvImportModalProps> = ({ isOpen, onClose 
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
   const handlePasteSubmit = () => {
