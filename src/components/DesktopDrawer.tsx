@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { GlassPanel } from './GlassPanel';
-import { Bell, Calendar, ChevronRight } from 'lucide-react';
+import { Bell, ChevronRight } from 'lucide-react';
 
 export const DesktopDrawer: React.FC = () => {
   const navigate = useNavigate();

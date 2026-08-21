@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { GlassPanel } from '../components/GlassPanel';
-import { Clock, MapPin } from 'lucide-react';
 
 export const MyEventsPage: React.FC = () => {
   const navigate = useNavigate();
