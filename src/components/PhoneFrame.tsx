@@ -7,8 +7,8 @@ interface PhoneFrameProps {
 export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
   return (
     <div className="w-full min-h-screen bg-bg-base text-ink relative font-body overflow-x-hidden">
-      {/* 1. Real Mobile Phone View (< 768px): Full-bleed 100% Edge-to-Edge */}
-      <div className="md:hidden w-full min-h-screen flex flex-col relative z-10">
+      {/* 1. Real Mobile Devices & Mobile Browsers (< 1024px): 100% Full-bleed Edge-to-Edge Light Background */}
+      <div className="lg:hidden w-full min-h-screen flex flex-col relative z-10">
         {/* Ambient background orbs */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
           <div
@@ -26,8 +26,8 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
         </div>
       </div>
 
-      {/* 2. Desktop Shell Mockup View (>= 768px): Centered 390px x 844px Phone Frame */}
-      <div className="hidden md:flex fixed inset-0 bg-[#0B0F19] justify-center items-center p-6 z-0 overflow-hidden">
+      {/* 2. Desktop Screens ONLY (>= 1024px): 390px x 844px Phone Frame Mockup in Dark Ambient Canvas */}
+      <div className="hidden lg:flex fixed inset-0 bg-[#0B0F19] justify-center items-center p-6 z-0 overflow-hidden">
         {/* Desktop ambient background orbs */}
         <div className="fixed inset-0 pointer-events-none z-0">
           <div

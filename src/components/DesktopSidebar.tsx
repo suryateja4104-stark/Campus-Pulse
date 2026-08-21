@@ -26,7 +26,7 @@ export const DesktopSidebar: React.FC = () => {
 
   return (
     <>
-      <aside className="w-64 h-screen sticky top-0 p-4 flex flex-col justify-between z-40 hidden md:flex">
+      <aside className="w-64 h-screen sticky top-0 p-4 flex flex-col justify-between z-40 hidden lg:flex">
         <GlassPanel weight="chrome" className="h-full p-4 flex flex-col justify-between rounded-[32px]">
           {/* Top Brand Header */}
           <div className="flex flex-col gap-4">

@@ -62,7 +62,7 @@ export const FeedPage: React.FC = () => {
       )}
 
       {/* Top Mobile Header */}
-      <header className={`flex flex-col gap-2.5 pt-1 ${viewMode === 'desktop' ? 'md:hidden' : ''}`}>
+      <header className={`flex flex-col gap-2.5 pt-1 ${viewMode === 'desktop' ? 'lg:hidden' : ''}`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="relative w-6 h-6 flex items-center justify-center flex-shrink-0">

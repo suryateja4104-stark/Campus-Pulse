@@ -32,19 +32,19 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 const isMobileDevice = (): boolean => {
   if (typeof window === 'undefined') return false;
 
-  // 1. Check Mobile User Agent string (iPhone, Android, Mobile Safari, etc.)
+  // 1. Check Mobile User Agent string
   const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(
     navigator.userAgent || navigator.vendor || (window as any).opera || ''
   );
 
-  // 2. Check screen width & media queries
-  const isSmallViewport = window.innerWidth < 768 || window.screen.width < 768;
-  const matchesMobileMedia = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+  // 2. Check screen width & media queries (< 1024px threshold)
+  const isSmallViewport = window.innerWidth < 1024 || window.screen.width < 1024;
+  const matchesMobileMedia = window.matchMedia && window.matchMedia('(max-width: 1023px)').matches;
 
-  // 3. Touch screen capability with mobile width
+  // 3. Touch screen capability
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-  return isMobileUserAgent || isSmallViewport || matchesMobileMedia || (isTouchDevice && isSmallViewport);
+  return isMobileUserAgent || isSmallViewport || matchesMobileMedia || isTouchDevice;
 };
 
 const getInitialViewMode = (): ViewMode => {
