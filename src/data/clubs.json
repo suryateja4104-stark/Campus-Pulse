@@ -1,0 +1,84 @@
+[
+  {
+    "id": "techsoc",
+    "name": "TechSoc",
+    "tagline": "Driving product & tech innovation across campus",
+    "category": "Technology",
+    "logo": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=150&q=80",
+    "coverImage": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+    "about": "TechSoc is the premier technology & product management club at campus. We host hackathons, case competitions, and product teardown sessions with PM leaders.",
+    "followersCount": 420,
+    "coreTeam": [
+      { "name": "Aarav Sharma", "role": "President", "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" },
+      { "name": "Riya Patel", "role": "VP Events", "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80" },
+      { "name": "Karan Verma", "role": "Tech Lead", "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" }
+    ]
+  },
+  {
+    "id": "finsec",
+    "name": "FinSec",
+    "tagline": "The Finance & Investment Society",
+    "category": "Finance",
+    "logo": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=150&q=80",
+    "coverImage": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80",
+    "about": "FinSec prepares students for investment banking, private equity, and equity research through valuation bootcamps and live trading simulations.",
+    "followersCount": 580,
+    "coreTeam": [
+      { "name": "Neha Gupta", "role": "President", "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" },
+      { "name": "Siddharth Rao", "role": "Vice President", "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" }
+    ]
+  },
+  {
+    "id": "consclub",
+    "name": "Consulting Club",
+    "tagline": "Problem solving for top-tier strategy consulting",
+    "category": "Consulting",
+    "logo": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=150&q=80",
+    "coverImage": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+    "about": "The Consulting Club runs case preparation circles, guesstimate workshops, and mock interview marathons with McKinsey, BCG, and Bain alumni.",
+    "followersCount": 640,
+    "coreTeam": [
+      { "name": "Ananya Roy", "role": "Convenor", "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" },
+      { "name": "Vikram Malhotra", "role": "Case Master", "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=100&q=80" }
+    ]
+  },
+  {
+    "id": "markcell",
+    "name": "MarCell",
+    "tagline": "Brand strategy, growth hacking & marketing insights",
+    "category": "Marketing",
+    "logo": "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=150&q=80",
+    "coverImage": "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=800&q=80",
+    "about": "MarCell brings FMCG brand challenges, live digital campaign competitions, and consumer behavior sessions to campus.",
+    "followersCount": 390,
+    "coreTeam": [
+      { "name": "Ishita Saxena", "role": "President", "avatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80" }
+    ]
+  },
+  {
+    "id": "sportscom",
+    "name": "SportsCom",
+    "tagline": "Inter-hostel leagues, fitness & sports tournaments",
+    "category": "Sports",
+    "logo": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=150&q=80",
+    "coverImage": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80",
+    "about": "SportsCom organizes inter-batch cricket tournaments, futsal leagues, badminton championships, and annual sports fests.",
+    "followersCount": 510,
+    "coreTeam": [
+      { "name": "Devansh Mehta", "role": "Sports Sec", "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=100&q=80" }
+    ]
+  },
+  {
+    "id": "cultsec",
+    "name": "CultSec",
+    "tagline": "Music, dance, drama and campus cultural celebrations",
+    "category": "Social",
+    "logo": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=150&q=80",
+    "coverImage": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80",
+    "about": "CultSec orchestrates open mic nights, inter-hostel dance battles, festive celebrations, and the flagship annual cultural fest.",
+    "followersCount": 720,
+    "coreTeam": [
+      { "name": "Meera Sen", "role": "Cult Sec", "avatar": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=100&q=80" }
+    ]
+  }
+]

@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-base: #F8FAFC;
+  --color-coral: #4361EE;       /* PRODLAB Electric Blue */
+  --color-coral-deep: #1E40AF;  /* PRODLAB Deep Blue */
+  --color-peach: #E0E7FF;       /* PRODLAB Soft Lavender/Blue Tint */
+  --color-aqua: #0EA5E9;        /* PRODLAB Sky Blue */
+  --color-aqua-deep: #0284C7;   /* PRODLAB Deep Sky */
+  --color-ink: #0F172A;         /* PRODLAB Slate Ink */
+  --color-ink-2: #475569;       /* PRODLAB Secondary Slate */
+  --color-ink-3: #94A3B8;       /* PRODLAB Muted Slate */
+
+  --font-display: "Bricolage Grotesque", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --radius-card: 28px;
+  --radius-sheet: 32px;
+  --radius-input: 18px;
+  --radius-chip: 20px;
+
+  --spacing-gutter: 20px;
+  --spacing-stack: 16px;
+  --spacing-pill: 20px;
+
+  --shadow-glass: 0 12px 40px rgba(67, 97, 238, 0.12);
+  --shadow-glass-hover: 0 16px 48px rgba(67, 97, 238, 0.18);
+}
+
+@layer base {
+  body {
+    background-color: #0B0F19;
+    font-family: 'Manrope', sans-serif;
+    color: #0F172A;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  /* Keyboard focus rings on all interactive elements */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible {
+    outline: 2px solid #4361EE;
+    outline-offset: 2px;
+  }
+
+  /* Hide scrollbars for clean mobile UX */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .pulse-ring-anim {
+    animation: none !important;
+    transform: scale(1) !important;
+    opacity: 0.5 !important;
+  }
+}
