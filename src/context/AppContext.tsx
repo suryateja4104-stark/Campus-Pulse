@@ -29,11 +29,26 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+const isMobileDevice = (): boolean => {
+  if (typeof window === 'undefined') return false;
+
+  // 1. Check Mobile User Agent string (iPhone, Android, Mobile Safari, etc.)
+  const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile/i.test(
+    navigator.userAgent || navigator.vendor || (window as any).opera || ''
+  );
+
+  // 2. Check screen width & media queries
+  const isSmallViewport = window.innerWidth < 768 || window.screen.width < 768;
+  const matchesMobileMedia = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+
+  // 3. Touch screen capability with mobile width
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  return isMobileUserAgent || isSmallViewport || matchesMobileMedia || (isTouchDevice && isSmallViewport);
+};
+
 const getInitialViewMode = (): ViewMode => {
-  if (typeof window !== 'undefined') {
-    return window.innerWidth < 768 ? 'mobile-frame' : 'desktop';
-  }
-  return 'desktop';
+  return isMobileDevice() ? 'mobile-frame' : 'desktop';
 };
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -50,15 +65,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      if (isMobileDevice()) {
         setViewMode('mobile-frame');
-      } else {
+      } else if (window.innerWidth >= 1024) {
         setViewMode('desktop');
       }
     };
 
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
+    };
   }, []);
 
   const toggleViewMode = () => {
