@@ -24,10 +24,10 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
           />
         </div>
 
-        {/* Zoomed mobile content container scaled 1.8x */}
+        {/* Zoomed mobile content container scaled 2x */}
         <div 
-          className="w-full max-w-[460px] min-h-screen flex flex-col relative z-10 pb-28"
-          style={{ zoom: 1.8 }}
+          className="w-full max-w-[480px] min-h-screen flex flex-col relative z-10 pb-28"
+          style={{ zoom: 2 }}
         >
           {children}
         </div>
