@@ -60,14 +60,9 @@ export const isMobilePhone = (): boolean => {
 const getInitialViewMode = (): ViewMode => {
   try {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(VIEW_MODE_KEY) as ViewMode | null;
-      if (saved === 'desktop' || saved === 'mobile-frame') {
-        return saved;
-      }
+      localStorage.removeItem(VIEW_MODE_KEY);
     }
-  } catch (err) {
-    // Storage fallback
-  }
+  } catch (err) {}
   return isMobilePhone() ? 'mobile-frame' : 'desktop';
 };
 
@@ -112,11 +107,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const setViewMode = (mode: ViewMode) => {
     setViewModeState(mode);
-    try {
-      localStorage.setItem(VIEW_MODE_KEY, mode);
-    } catch {
-      // Storage fallback
-    }
   };
 
   useEffect(() => {
@@ -124,8 +114,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       try {
         if (window.innerWidth < 768) {
           setViewModeState('mobile-frame');
-        } else if (isMobilePhone()) {
-          setViewModeState('mobile-frame');
+        } else if (!isMobilePhone() && window.innerWidth >= 1024) {
+          setViewModeState('desktop');
         }
       } catch (err) {
         // Silent fallback
