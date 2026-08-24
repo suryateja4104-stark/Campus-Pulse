@@ -68,7 +68,7 @@ const getInitialViewMode = (): ViewMode => {
   } catch (err) {
     // Storage fallback
   }
-  return 'mobile-frame';
+  return isMobilePhone() ? 'mobile-frame' : 'desktop';
 };
 
 const getInitialEvents = (): Event[] => {

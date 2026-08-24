@@ -51,7 +51,7 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
       </div>
 
       {/* 390px x 844px Desktop Simulated Phone Shell */}
-      <div className="relative w-[390px] h-[844px] bg-bg-base rounded-[48px] shadow-2xl flex flex-col border-[8px] border-[#1E293B] z-10 overflow-hidden">
+      <div className="relative w-[390px] max-h-[85vh] h-[844px] bg-bg-base rounded-[48px] shadow-2xl flex flex-col border-[8px] border-[#1E293B] z-10 overflow-hidden">
         <div className="w-full h-2 flex-shrink-0 bg-transparent relative z-20" />
         <div className="flex-1 w-full z-10 overflow-y-auto no-scrollbar pb-28">
           {children}
