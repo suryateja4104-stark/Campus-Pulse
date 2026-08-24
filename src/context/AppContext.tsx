@@ -35,21 +35,16 @@ export const isMobilePhone = (): boolean => {
   try {
     if (typeof window === 'undefined') return false;
 
-    // 1. Check touch capability & coarse pointer safely
-    const hasTouch =
-      'ontouchstart' in window ||
-      (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0) ||
-      (typeof window.matchMedia === 'function' && Boolean(window.matchMedia('(pointer: coarse)')?.matches));
-
-    // 2. Comprehensive Mobile User Agent Regex
+    // 1. Comprehensive Mobile User Agent Regex
     const nav = typeof navigator !== 'undefined' ? navigator : ({} as any);
     const ua = (nav.userAgent || nav.vendor || (window as any).opera || '').toLowerCase();
     const isMobileUA = /iphone|ipod|ipad|android|windows phone|blackberry|mobile|opera mini|silk|kindle/i.test(ua);
 
-    // 3. Viewport & Touch check (all touch devices, mobile UAs, or screen width < 768px)
+    // 2. Smartphone viewport width check (< 768px)
     if (window.innerWidth < 768) return true;
-    if (hasTouch) return true;
-    if (isMobileUA) return true;
+
+    // 3. Mobile UA check for tablets/large phones (<= 1024px)
+    if (isMobileUA && window.innerWidth <= 1024) return true;
 
     return false;
   } catch (err) {
