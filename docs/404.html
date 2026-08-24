@@ -6,9 +6,11 @@
     <title>Campus Pulse</title>
     <script>
       // Redirect GitHub Pages 404s to HashRouter route
-      var segment = window.location.pathname.split('/').pop();
-      var hashRoute = segment && segment !== 'Campus-Pulse' ? '#/' + segment : '#/feed';
-      window.location.replace('/Campus-Pulse/' + hashRoute);
+      var pathSegments = window.location.pathname.split('/').filter(Boolean);
+      var lastSegment = pathSegments[pathSegments.length - 1] || '';
+      var hashRoute = (lastSegment && lastSegment !== 'Campus-Pulse' && !lastSegment.includes('.')) ? '#/' + lastSegment : '#/feed';
+      var baseUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+      window.location.replace(baseUrl + hashRoute);
     </script>
   </head>
   <body>
