@@ -29,26 +29,48 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+const VIEW_MODE_KEY = 'campus_pulse_view_mode';
+
 export const isMobilePhone = (): boolean => {
   try {
     if (typeof window === 'undefined') return false;
 
-    // 1. Viewport width threshold check (mobile screens or DevTools emulation like 390px)
-    if (window.innerWidth < 768) {
-      return true;
-    }
+    // 1. Check touch capability & coarse pointer
+    const hasTouch =
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0 ||
+      (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
 
-    // 2. Mobile User Agent Regex
+    // 2. Comprehensive Mobile User Agent Regex
     const ua = (navigator.userAgent || navigator.vendor || (window as any).opera || '').toLowerCase();
-    const isMobileUA = /iphone|ipod|android.*mobile|windows phone|blackberry|mobile/i.test(ua);
+    const isMobileUA = /iphone|ipod|ipad|android|windows phone|blackberry|mobile|opera mini|silk|kindle/i.test(ua);
 
-    return isMobileUA;
+    // 3. Viewport check (< 1024px for touch/mobile devices, < 768px for any device)
+    if (window.innerWidth < 768) return true;
+    if (hasTouch && window.innerWidth <= 1024) return true;
+    if (isMobileUA) return true;
+
+    return false;
   } catch (err) {
     return false;
   }
 };
 
 const getInitialViewMode = (): ViewMode => {
+  try {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem(VIEW_MODE_KEY) as ViewMode | null;
+      if (saved === 'desktop' || saved === 'mobile-frame') {
+        // Always force mobile-frame on actual small mobile screens (< 768px)
+        if (isMobilePhone() && window.innerWidth < 768) {
+          return 'mobile-frame';
+        }
+        return saved;
+      }
+    }
+  } catch (err) {
+    // Storage fallback
+  }
   return isMobilePhone() ? 'mobile-frame' : 'desktop';
 };
 
@@ -89,17 +111,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [followedClubIds, setFollowedClubIds] = useState<string[]>(['consclub', 'techsoc']);
   const [reminders, setRemindersState] = useState<Record<string, string>>({ 'evt-1': '15 Min' });
 
-  const [viewMode, setViewMode] = useState<ViewMode>(getInitialViewMode);
+  const [viewMode, setViewModeState] = useState<ViewMode>(getInitialViewMode);
+
+  const setViewMode = (mode: ViewMode) => {
+    setViewModeState(mode);
+    try {
+      localStorage.setItem(VIEW_MODE_KEY, mode);
+    } catch {
+      // Storage fallback
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => {
       try {
         if (window.innerWidth < 768) {
-          setViewMode('mobile-frame');
+          setViewModeState('mobile-frame');
         } else if (isMobilePhone()) {
-          setViewMode('mobile-frame');
-        } else {
-          setViewMode('desktop');
+          setViewModeState('mobile-frame');
         }
       } catch (err) {
         // Silent fallback
@@ -115,7 +144,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, []);
 
   const toggleViewMode = () => {
-    setViewMode((prev) => (prev === 'desktop' ? 'mobile-frame' : 'desktop'));
+    setViewMode(viewMode === 'desktop' ? 'mobile-frame' : 'desktop');
   };
 
   const importEvents = (newEvents: Event[]) => {
