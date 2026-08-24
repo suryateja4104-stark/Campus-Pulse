@@ -62,17 +62,13 @@ const getInitialViewMode = (): ViewMode => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem(VIEW_MODE_KEY) as ViewMode | null;
       if (saved === 'desktop' || saved === 'mobile-frame') {
-        // Always force mobile-frame on actual small mobile screens (< 768px)
-        if (isMobilePhone() && window.innerWidth < 768) {
-          return 'mobile-frame';
-        }
         return saved;
       }
     }
   } catch (err) {
     // Storage fallback
   }
-  return isMobilePhone() ? 'mobile-frame' : 'desktop';
+  return 'mobile-frame';
 };
 
 const getInitialEvents = (): Event[] => {
