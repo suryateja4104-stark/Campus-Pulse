@@ -8,10 +8,10 @@ interface PhoneFrameProps {
 export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
   const isMobile = isMobilePhone();
 
-  // On real mobile devices: 100% Full-bleed mobile container (max-w-[430px] centered on wide screens, 100% on phones)
+  // On real mobile devices: 100% Full-width container filling device screen edge-to-edge (ZERO side gaps)
   if (isMobile) {
     return (
-      <div className="w-full min-h-screen bg-bg-base text-ink font-body relative overflow-x-hidden flex justify-center">
+      <div className="w-full min-h-screen bg-bg-base text-ink font-body relative overflow-x-hidden">
         {/* Soft subtle background glowing orbs */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
           <div
@@ -24,8 +24,8 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
           />
         </div>
 
-        {/* 100% Full-bleed mobile content container with mobile max-width */}
-        <div className="w-full max-w-[430px] min-h-screen flex flex-col relative z-10 pb-28">
+        {/* 100% Full-bleed content container spanning 100% width edge-to-edge */}
+        <div className="w-full min-h-screen flex flex-col relative z-10 pb-28">
           {children}
         </div>
       </div>
