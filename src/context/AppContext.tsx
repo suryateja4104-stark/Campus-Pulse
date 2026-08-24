@@ -33,26 +33,16 @@ export const isMobilePhone = (): boolean => {
   try {
     if (typeof window === 'undefined') return false;
 
-    const ua = (navigator.userAgent || navigator.vendor || (window as any).opera || '').toLowerCase();
-
-    // 1. Mobile Phone User Agent Regex
-    const isMobileUA = /iphone|ipod|android.*mobile|windows phone|blackberry|mobile/i.test(ua);
-    
-    // 2. Desktop OS User Agent Regex (Windows, Mac, Chromebook, Linux)
-    const isDesktopOS = /macintosh|windows nt|cros|linux x86_64/i.test(ua) && !isMobileUA;
-
-    if (isDesktopOS) {
-      // Desktop computers ALWAYS default to Desktop View
-      return false;
-    }
-
-    if (isMobileUA) {
-      // Smartphones ALWAYS default to Mobile View
+    // 1. Viewport width threshold check (mobile screens or DevTools emulation like 390px)
+    if (window.innerWidth < 768) {
       return true;
     }
 
-    // 3. Fallback Viewport check (768px threshold)
-    return window.innerWidth < 768;
+    // 2. Mobile User Agent Regex
+    const ua = (navigator.userAgent || navigator.vendor || (window as any).opera || '').toLowerCase();
+    const isMobileUA = /iphone|ipod|android.*mobile|windows phone|blackberry|mobile/i.test(ua);
+
+    return isMobileUA;
   } catch (err) {
     return false;
   }
@@ -104,9 +94,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   useEffect(() => {
     const handleResize = () => {
       try {
-        if (isMobilePhone()) {
+        if (window.innerWidth < 768) {
           setViewMode('mobile-frame');
-        } else if (window.innerWidth >= 768) {
+        } else if (isMobilePhone()) {
+          setViewMode('mobile-frame');
+        } else {
           setViewMode('desktop');
         }
       } catch (err) {
