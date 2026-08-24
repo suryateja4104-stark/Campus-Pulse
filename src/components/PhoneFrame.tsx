@@ -8,10 +8,10 @@ interface PhoneFrameProps {
 export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
   const isMobile = isMobilePhone();
 
-  // On real mobile devices: Zoomed mobile layout (max-w-[420px] with 1.15x zoom scaling)
+  // On real mobile devices: 100% Full-bleed mobile layout filling device screen edge-to-edge
   if (isMobile) {
     return (
-      <div className="w-full min-h-screen bg-bg-base text-ink font-body relative overflow-x-hidden flex justify-center">
+      <div className="w-full min-h-screen bg-bg-base text-ink font-body relative overflow-x-hidden">
         {/* Soft subtle background glowing orbs */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
           <div
@@ -24,11 +24,8 @@ export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
           />
         </div>
 
-        {/* Zoomed mobile content container scaled 1.6x */}
-        <div 
-          className="w-full max-w-[440px] min-h-screen flex flex-col relative z-10 pb-28"
-          style={{ zoom: 1.6 }}
-        >
+        {/* 100% Full-bleed content container */}
+        <div className="w-full min-h-screen flex flex-col relative z-10 pb-28">
           {children}
         </div>
       </div>
