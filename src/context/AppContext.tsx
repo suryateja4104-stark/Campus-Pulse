@@ -46,9 +46,9 @@ export const isMobilePhone = (): boolean => {
     const ua = (nav.userAgent || nav.vendor || (window as any).opera || '').toLowerCase();
     const isMobileUA = /iphone|ipod|ipad|android|windows phone|blackberry|mobile|opera mini|silk|kindle/i.test(ua);
 
-    // 3. Viewport check (< 1024px for touch/mobile devices, < 768px for any device)
+    // 3. Viewport & Touch check (all touch devices, mobile UAs, or screen width < 768px)
     if (window.innerWidth < 768) return true;
-    if (hasTouch && window.innerWidth <= 1024) return true;
+    if (hasTouch) return true;
     if (isMobileUA) return true;
 
     return false;

@@ -15,7 +15,7 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <div className="fixed md:absolute bottom-4 left-4 right-4 md:left-5 md:right-5 z-50 pointer-events-none">
+    <div className="fixed bottom-4 left-4 right-4 z-50 pointer-events-none">
       <GlassPanel
         weight="chrome"
         className="pointer-events-auto rounded-full py-2 px-3 flex justify-around items-center max-w-[360px] mx-auto shadow-2xl border border-white/90"
